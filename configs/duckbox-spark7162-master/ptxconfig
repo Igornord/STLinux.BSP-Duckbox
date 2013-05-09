@@ -7,7 +7,7 @@ PTXCONF_MODULES=y
 #
 # Project Name & Version           
 #
-PTXCONF_PROJECT="openarp"
+PTXCONF_PROJECT="duckbox"
 PTXCONF_PROJECT_VERSION="master"
 
 #
