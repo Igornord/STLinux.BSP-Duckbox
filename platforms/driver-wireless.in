@@ -1,8 +1,0 @@
-## SECTION=kernel_driver
-
-config DRIVER_WIRELESS
-	tristate
-	select KERNEL
-	prompt "driver-wireless"
-	help
-	  FIXME
