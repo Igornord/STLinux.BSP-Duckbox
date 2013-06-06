@@ -19,6 +19,14 @@ PACKAGES-$(PTXCONF_ENIGMA2_PLI_DEV) += enigma2-pli-dev
 #
 # Paths and names
 #
+##### enigma2-pli-arp
+ifdef PTXCONF_ENIGMA2_PLI_VERSION_MASTER
+ENIGMA2_PLI_VERSION	:= 43dd2ca8ead25bac8b2910fbfdf1debbb1dff088
+endif
+ifdef PTXCONF_ENIGMA2_PLI_VERSION_LAST
+ENIGMA2_PLI_VERSION	:= aa18b40b5234d59867c5998caa819b19e16e4079
+endif
+#####
 ifdef PTXCONF_ENIGMA2_PLI_VERSION_201203171951
 ENIGMA2_PLI_VERSION	:= 945aeb939308b3652b56bc6c577853369d54a537
 endif
@@ -32,10 +40,16 @@ ifdef PTXCONF_ENIGMA2_PLI_VERSION_201303022136
 ENIGMA2_PLI_VERSION	:= 4361a969cde00cd37d6d17933f2621ea49b5a30a
 endif
 
+
 ENIGMA2_PLI		:= enigma2-pli-$(ENIGMA2_PLI_VERSION)
+ifdef PTXCONF_ENIGMA2_PLI_ARP
+ENIGMA2_PLI_URL	:= git@github.com:schpuntik/enigma2-pli-arp.git
+ENIGMA2_PLI_SOURCE_GIT	:= $(SRCDIR)/enigma2-pli-arp.git
+else
 ENIGMA2_PLI_URL	:= git://git.code.sf.net/p/openpli/enigma2
 ENIGMA2_PLI_URLOLD := git://openpli.git.sourceforge.net/gitroot/openpli/enigma2
 ENIGMA2_PLI_SOURCE_GIT	:= $(SRCDIR)/enigma2-pli.git
+endif
 ENIGMA2_PLI_DIR	:= $(BUILDDIR)/$(ENIGMA2_PLI)
 ENIGMA2_PLI_LICENSE	:= enigma2-pli
 
@@ -72,10 +86,10 @@ $(STATEDIR)/enigma2-pli.extract:
 	rm -rf $(ENIGMA2_PLI_DIR)/.git;
 	
 	@$(call patchin, ENIGMA2_PLI)
-	
+ifdef !PTXCONF_ENIGMA2_PLI_ARP	
 	cp $(word 1, $(PATH_PATCHES))/$(ENIGMA2_PLI)/valis_enigma.ttf $(ENIGMA2_PLI_DIR)/data/fonts/
 	cp $(word 1, $(PATH_PATCHES))/$(ENIGMA2_PLI)/valis_lcd.ttf $(ENIGMA2_PLI_DIR)/data/fonts/
-	
+endif	
 	sed -e 's|#!/usr/bin/python|#!$(PTXDIST_SYSROOT_CROSS)/bin/python|' -i $(ENIGMA2_PLI_DIR)/po/xml2po.py
 	cd $(ENIGMA2_PLI_DIR) && sh autogen.sh
 	
@@ -87,7 +101,17 @@ $(STATEDIR)/enigma2-pli.extract:
 
 ENIGMA2_PLI_PATH	:= PATH=$(CROSS_PATH)
 ENIGMA2_PLI_ENV 	:= $(CROSS_ENV)
-
+ifdef PTXCONF_ENIGMA2_PLI_ARP
+ENIGMA2_PLI_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+		--prefix=/usr \
+		--without-libsdl \
+		--enable-libeplayer3 \
+		PYTHON=$(PTXDIST_SYSROOT_HOST)/bin/python2.7 \
+		PY_PATH=$(SYSROOT)/usr \
+		PKG_CONFIG=$(PTXDIST_SYSROOT_HOST)/bin/pkg-config \
+		PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig
+else
 ENIGMA2_PLI_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 		--prefix=/usr \
@@ -96,6 +120,7 @@ ENIGMA2_PLI_AUTOCONF := \
 		PY_PATH=$(SYSROOT)/usr \
 		PKG_CONFIG=$(PTXDIST_SYSROOT_HOST)/bin/pkg-config \
 		PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig
+endif
 
 $(STATEDIR)/enigma2-pli.install.post:
 	@$(call targetinfo)
@@ -129,7 +154,7 @@ $(STATEDIR)/enigma2-pli.targetinstall:
 	
 	@$(call install_lib, enigma2-pli, 0, 0, 0644, libopen)
 	
-	#@$(call install_tree, enigma2-pli, 0, 0, -, /usr/local/share/)
+	#@$(call install_tree, enigma2-pli, 0, 0, -, /usr/share/)
 	@cd $(ENIGMA2_PLI_PKGDIR) && \
 		find ./usr/share \
 		! -type d -a ! \( -name "keymap.xml" \) | \

@@ -1,0 +1,22 @@
+diff -Naur '--exclude-from=diff-ignore' enigma2-nightly.org/m4/ax_python_devel.m4 enigma2-nightly/m4/ax_python_devel.m4
+--- enigma2-nightly.org/m4/ax_python_devel.m4	2013-03-03 12:56:00.925947712 +0100
++++ enigma2-nightly/m4/ax_python_devel.m4	2013-03-03 13:14:47.101900352 +0100
+@@ -223,8 +223,7 @@
+ 		# credits goes to momjian, I think. I'd like to put the right name
+ 		# in the credits, if someone can point me in the right direction... ?
+ 		#
+-		if test -n "$ac_python_libdir" -a -n "$ac_python_library" \
+-			-a x"$ac_python_library" != x"$ac_python_soname"
++		if false
+ 		then
+ 			# use the official shared library
+ 			ac_python_library=`echo "$ac_python_library" | sed "s/^lib//"`
+@@ -268,7 +267,7 @@
+ 	if test -z "$PYTHON_EXTRA_LIBS"; then
+ 	   PYTHON_EXTRA_LIBS=`$PYTHON -c "import distutils.sysconfig; \
+                 conf = distutils.sysconfig.get_config_var; \
+-                print (conf('LOCALMODLIBS') + ' ' + conf('LIBS'))"`
++                print (conf('LOCALMODLIBS').replace('-L/usr/lib', '') + ' ' + conf('LIBS'))"`
+ 	fi
+ 	AC_MSG_RESULT([$PYTHON_EXTRA_LIBS])
+ 	AC_SUBST(PYTHON_EXTRA_LIBS)

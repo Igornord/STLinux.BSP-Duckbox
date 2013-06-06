@@ -1,7 +1,8 @@
 ## SECTION=multimedia_tools
 
+
 config ENIGMA2_PLI
-	tristate "enigma2-pli"
+	tristate
 	select FREETYPE
 	select EXPAT
 	select FONTCONFIG
@@ -25,19 +26,29 @@ config ENIGMA2_PLI
 	select PYTHON_ZLIB
 	select LIBXMLCCWRAP
 	select LIBSIGCPP
-	select LIBMMEIMAGE
+	select LIBMMEIMAGE 
 	select LIBTUXTXT
 	select LIBTUXTXT32BPP
-	select GST_PLUGINS_DVBMEDIASINK
 	select LIBDVBSIPP
-	select LIBDREAMDVD
+	select LIBDREAMDVD	
+	select GST_PLUGINS_DVBMEDIASINK if !ENIGMA2_PLI_ARP
+	prompt "enigma2-pli"
+	help 
+	  FIXME
 
 config ENIGMA2_PLI_DEV
 	tristate "enigma2-pli-dev"
 	default n
-	depends on ENIGMA2_PLI
+	select ENIGMA2_PLI
+
+config ENIGMA2_PLI_ARP
+	bool
+	prompt "enigma2-pli-arp"
+	select LIBEPLAYER3
+	help
+	  This enigma2-pli-arp libeplayer3 version
 	
-if ENIGMA2_PLI
+if !ENIGMA2_PLI_ARP
 choice
 	prompt "enigma2-pli version   "
 	default ENIGMA2_PLI_VERSION_201205181526
@@ -56,3 +67,15 @@ choice
 endchoice
 endif
 
+if ENIGMA2_PLI_ARP
+choice
+	prompt "enigma2-pli-arp version   "
+	default ENIGMA2_PLI_VERSION_MASTER
+
+	config ENIGMA2_PLI_VERSION_LAST
+		bool "branch last"
+
+	config ENIGMA2_PLI_VERSION_MASTER
+		bool "branch master"
+endchoice
+endif

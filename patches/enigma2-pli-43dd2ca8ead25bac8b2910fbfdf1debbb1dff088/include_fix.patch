@@ -1,0 +1,12 @@
+diff -Naur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/picload.cpp enigma2-nightly/lib/gdi/picload.cpp
+--- enigma2-nightly.org/lib/gdi/picload.cpp.org	2013-06-02 17:43:56.831193813 +0200
++++ enigma2-nightly/lib/gdi/picload.cpp	2013-06-02 17:44:30.771194381 +0200
+@@ -4,7 +4,7 @@
+ 
+ #include <lib/gdi/picload.h>
+ #include <lib/gdi/picexif.h>
+-#include "libmmeimage/libmmeimage.h"
++#include <libmmeimage.h>
+ 
+ extern "C" {
+ #include <jpeglib.h>

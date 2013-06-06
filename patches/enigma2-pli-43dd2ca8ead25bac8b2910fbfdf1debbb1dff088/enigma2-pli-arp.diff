@@ -1,0 +1,104 @@
+--- enigma2-pli-arp-43dd2ca8ead25bac8b2910fbfdf1debbb1dff088/lib/dvb/dvb.h.org	2013-06-02 18:25:03.311235031 +0200
++++ enigma2-pli-arp-43dd2ca8ead25bac8b2910fbfdf1debbb1dff088/lib/dvb/dvb.h	2013-06-02 18:19:36.923229577 +0200
+@@ -168,7 +168,7 @@
+ #if not defined(__sh__)
+ 	enum { DM7025, DM800, DM500HD, DM800SE, DM8000, DM7020HD };
+ #else
+-	enum { DM7025, DM800, DM500HD, DM800SE, DM8000, DM7020HD, ADB_BOX, UFS910, UFS912, UFS913, UFS922, TF7700HDPVR, HDBOX, HL101, CUBEREVO, CUBEREVO_MINI, CUBEREVO_MINI2, CUBEREVO_MINI_FTA, CUBEREVO_250HD, CUBEREVO_9500HD, CUBEREVO_2000HD, OCTAGON1008, VIP1_V2, VIP2_V1, SPARK, SPARK7162, ATEVIO7500, HS7810A, HS7110, WHITEBOX};
++	enum { DM7025, DM800, DM500HD, DM800SE, DM8000, DM7020HD, BOXTYPE_ADB_BOX, BOXTYPE_UFS910, BOXTYPE_UFS912, BOXTYPE_UFS913, BOXTYPE_UFS922, BOXTYPE_TF7700HDPVR, BOXTYPE_HDBOX, BOXTYPE_HL101, BOXTYPE_CUBEREVO, BOXTYPE_CUBEREVO_MINI, BOXTYPE_CUBEREVO_MINI2, BOXTYPE_CUBEREVO_MINI_FTA, BOXTYPE_CUBEREVO_250HD, BOXTYPE_CUBEREVO_9500HD, BOXTYPE_CUBEREVO_2000HD, BOXTYPE_OCTAGON1008, BOXTYPE_VIP1_V2, BOXTYPE_VIP2_V1, BOXTYPE_SPARK, BOXTYPE_SPARK7162, BOXTYPE_ATEVIO7500, BOXTYPE_HS7810A, BOXTYPE_HS7110, BOXTYPE_WHITEBOX};
+ #endif
+ 
+ 	int m_boxtype;
+--- enigma2-pli-arp-43dd2ca8ead25bac8b2910fbfdf1debbb1dff088/lib/dvb/dvb.cpp.org	2013-06-02 18:25:31.635235505 +0200
++++ enigma2-pli-arp-43dd2ca8ead25bac8b2910fbfdf1debbb1dff088/lib/dvb/dvb.cpp	2013-06-02 18:18:01.319227979 +0200
+@@ -116,53 +116,53 @@
+ 		m_boxtype = DM7020HD;
+ #if defined(__sh__)
+ 	else if (!strncmp(tmp, "adb_box\n", rd))
+-		m_boxtype = ADB_BOX;
++		m_boxtype = BOXTYPE_ADB_BOX;
+ 	else if (!strncmp(tmp, "ufs910\n", rd))
+-		m_boxtype = UFS910;
++		m_boxtype = BOXTYPE_UFS910;
+ 	else if (!strncmp(tmp, "ufs912\n", rd))
+-		m_boxtype = UFS912;
++		m_boxtype = BOXTYPE_UFS912;
+ 	else if (!strncmp(tmp, "ufs913\n", rd))
+-		m_boxtype = UFS913;
++		m_boxtype = BOXTYPE_UFS913;
+ 	else if (!strncmp(tmp, "ufs922\n", rd))
+-		m_boxtype = UFS922;
++		m_boxtype = BOXTYPE_UFS922;
+ 	else if (!strncmp(tmp, "tf7700hdpvr\n", rd))
+-		m_boxtype = TF7700HDPVR;
++		m_boxtype = BOXTYPE_TF7700HDPVR;
+ 	else if (!strncmp(tmp, "hdbox\n", rd))
+-		m_boxtype = HDBOX;
++		m_boxtype = BOXTYPE_HDBOX;
+ 	else if (!strncmp(tmp, "hl101\n", rd))
+-		m_boxtype = HL101;
++		m_boxtype = BOXTYPE_HL101;
+ 	else if (!strncmp(tmp, "spark\n", rd))
+-		m_boxtype = SPARK;
++		m_boxtype = BOXTYPE_SPARK;
+ 	else if (!strncmp(tmp, "spark7162\n", rd))
+-		m_boxtype = SPARK7162;
++		m_boxtype = BOXTYPE_SPARK7162;
+ 	else if (!strncmp(tmp, "vip1-v2\n", rd))
+-		m_boxtype = VIP1_V2;
++		m_boxtype = BOXTYPE_VIP1_V2;
+ 	else if (!strncmp(tmp, "vip2-v1\n", rd))
+-		m_boxtype = VIP2_V1;
++		m_boxtype = BOXTYPE_VIP2_V1;
+ 	else if (!strncmp(tmp, "cuberevo\n", rd))
+-		m_boxtype = CUBEREVO;
++		m_boxtype = BOXTYPE_CUBEREVO;
+ 	else if (!strncmp(tmp, "cuberevo-9500hd\n", rd))
+-		m_boxtype = CUBEREVO_9500HD;
++		m_boxtype = BOXTYPE_CUBEREVO_9500HD;
+ 	else if (!strncmp(tmp, "cuberevo-mini\n", rd))
+-		m_boxtype = CUBEREVO_MINI;
++		m_boxtype = BOXTYPE_CUBEREVO_MINI;
+ 	else if (!strncmp(tmp, "cuberevo-mini2\n", rd))
+-		m_boxtype = CUBEREVO_MINI2;
++		m_boxtype = BOXTYPE_CUBEREVO_MINI2;
+ 	else if (!strncmp(tmp, "cuberevo-2000hd\n", rd))
+-		m_boxtype = CUBEREVO_2000HD;
++		m_boxtype = BOXTYPE_CUBEREVO_2000HD;
+ 	else if (!strncmp(tmp, "cuberevo-250hd\n", rd))
+-		m_boxtype = CUBEREVO_250HD;
++		m_boxtype = BOXTYPE_CUBEREVO_250HD;
+ 	else if (!strncmp(tmp, "cuberevo-mini-fta\n", rd))
+-		m_boxtype = CUBEREVO_MINI_FTA;
++		m_boxtype = BOXTYPE_CUBEREVO_MINI_FTA;
+ 	else if (!strncmp(tmp, "octagon1008\n", rd))
+-		m_boxtype = OCTAGON1008;
++		m_boxtype = BOXTYPE_OCTAGON1008;
+ 	else if (!strncmp(tmp, "hs7810a\n", rd))
+-		m_boxtype = HS7810A;
++		m_boxtype = BOXTYPE_HS7810A;
+ 	else if (!strncmp(tmp, "hs7110\n", rd))
+-		m_boxtype = HS7110;
++		m_boxtype = BOXTYPE_HS7110;
+ 	else if (!strncmp(tmp, "whitebox\n", rd))
+-		m_boxtype = WHITEBOX;
++		m_boxtype = BOXTYPE_WHITEBOX;
+ 	else if (!strncmp(tmp, "atevio7500\n", rd))
+-		m_boxtype = ATEVIO7500;
++		m_boxtype = BOXTYPE_ATEVIO7500;
+ #endif
+ 	else {
+ 		eDebug("boxtype detection via /proc/stb/info not possible... use fallback via demux count!\n");
+@@ -1021,9 +1021,9 @@
+ 		}
+ 	}
+ #if defined(__sh__) // we use our own algo for demux detection
+-	else if (m_boxtype == ADB_BOX || m_boxtype == UFS910 || m_boxtype == UFS912 || m_boxtype == UFS913 || m_boxtype == SPARK || m_boxtype == SPARK7162 || m_boxtype == UFS922 || m_boxtype == TF7700HDPVR || m_boxtype == HDBOX ||
+-		m_boxtype == HL101 || m_boxtype == CUBEREVO || m_boxtype == CUBEREVO_MINI || m_boxtype == CUBEREVO_MINI2 || m_boxtype == VIP1_V2 || m_boxtype == VIP2_V1 || m_boxtype == HS7810A || m_boxtype == HS7110 || m_boxtype == WHITEBOX ||
+-		m_boxtype == CUBEREVO_MINI_FTA || m_boxtype == CUBEREVO_250HD || m_boxtype == CUBEREVO_2000HD || m_boxtype == CUBEREVO_9500HD || m_boxtype == OCTAGON1008 || m_boxtype == ATEVIO7500)
++	else if (m_boxtype == BOXTYPE_ADB_BOX || m_boxtype == BOXTYPE_UFS910 || m_boxtype == BOXTYPE_UFS912 || m_boxtype == BOXTYPE_UFS913 || m_boxtype == BOXTYPE_SPARK || m_boxtype == BOXTYPE_SPARK7162 || m_boxtype == BOXTYPE_UFS922 || m_boxtype == BOXTYPE_TF7700HDPVR || m_boxtype == BOXTYPE_HDBOX ||
++		m_boxtype == BOXTYPE_HL101 || m_boxtype == BOXTYPE_CUBEREVO || m_boxtype == BOXTYPE_CUBEREVO_MINI || m_boxtype == BOXTYPE_CUBEREVO_MINI2 || m_boxtype == BOXTYPE_VIP1_V2 || m_boxtype == BOXTYPE_VIP2_V1 || m_boxtype == BOXTYPE_HS7810A || m_boxtype == BOXTYPE_HS7110 || m_boxtype == BOXTYPE_WHITEBOX ||
++		m_boxtype == BOXTYPE_CUBEREVO_MINI_FTA || m_boxtype == BOXTYPE_CUBEREVO_250HD || m_boxtype == BOXTYPE_CUBEREVO_2000HD || m_boxtype == BOXTYPE_CUBEREVO_9500HD || m_boxtype == BOXTYPE_OCTAGON1008 || m_boxtype == BOXTYPE_ATEVIO7500)
+ 	{
+ 		int n=0;
+ 		for (; i != m_demux.end(); ++i, ++n)
