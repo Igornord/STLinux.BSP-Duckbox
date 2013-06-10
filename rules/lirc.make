@@ -128,21 +128,40 @@ endif
 ifdef PTXCONF_LIRC_LIRCMD
 	@$(call install_copy, lirc, 0, 0, 0755, -, /usr/sbin/lircmd)
 endif
+ifdef PTXCONF_ENIGMA2_PLI_ARP
+ifdef PTXCONF_PLATFORM_SPARK
 ifdef PTXCONF_LIRC_ETC_LIRCD_CONF
-	@$(call install_alternative, lirc, 0, 0, 0755, /etc/lircd.conf)
+	@$(call install_alternative, lirc, 0, 0, 0644, /etc/lircd.conf)
+	@$(call install_alternative, lirc, 0, 0, 0644, /etc/lircd.conf.09_00_07)
+	@$(call install_alternative, lirc, 0, 0, 0644, /etc/lircd.conf.09_00_08)
+	@$(call install_alternative, lirc, 0, 0, 0644, /etc/lircd.conf.09_00_0B)
+	@$(call install_alternative, lirc, 0, 0, 0644, /etc/lircd.conf.09_00_1D)
+endif
+else
+ifdef PTXCONF_LIRC_ETC_LIRCD_CONF
+	@$(call install_alternative, lirc, 0, 0, 0644, /etc/lircd.conf)
+endif
+endif
+else
+ifdef PTXCONF_LIRC_ETC_LIRCD_CONF
+	@$(call install_alternative, lirc, 0, 0, 0644, /etc/lircd.conf)
+endif
 endif
 ifdef PTXCONF_LIRC_ETC_HARDW_CONF
-	@$(call install_alternative, lirc, 0, 0, 0755, /etc/lirc/hardware.conf)
+	@$(call install_alternative, lirc, 0, 0, 0644, /etc/lirc/hardware.conf)
 endif
 ifdef PTXCONF_LIRC_UDEV_RULE
-	@$(call install_alternative, lirc, 0, 0, 0755, /lib/udev/rules.d/10-irremote.rules)
+	@$(call install_alternative, lirc, 0, 0, 0644, /lib/udev/rules.d/10-irremote.rules)
 endif
 
 #	# install init script
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_LIRC_STARTSCRIPT
+ifdef PTXCONF_ENIGMA2_PLI_ARP
+	@$(call install_copy, lirc, 0, 0, 0755, $(PTXDIST_PLATFORMCONFIGDIR)/projectroot/etc/init.d/lirc, /etc/init.d/lirc)
+else
 	@$(call install_alternative, lirc, 0, 0, 0755, /etc/init.d/lirc)
-
+endif
 ifneq ($(call remove_quotes,$(PTXCONF_LIRC_BBINIT_LINK)),)
 	@$(call install_link, lirc, \
 		../init.d/lirc, \

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+lirc_conf="/etc/lirc.conf"
+PID=/var/run/lirc/lircd.pid
+
+[ -e /dev/lirc ] || ln -s lirc0 /dev/lirc
+[ -d /var/run/lirc ] || mkdir -p /var/run/lirc
+boxver()
+{
+	STB_ID=`sed 's/.*STB_ID=//;s/ .*//;/[:]/!d;s/:/_/g' /proc/cmdline`
+	[ -z "$STB_ID" ] && STB_ID=`sed 's/.*ethaddr://;s/ .*//;/[:]/!d;s/^24/09/;s/:/_/g' /proc/cmdline`
+	BOX_ID=${STB_ID:0:8}
+	echo "STB_ID = $STB_ID" 
+	echo "BOX_ID = $BOX_ID"
+}
+case $1 in
+start)
+		echo "Starting lircd..."
+		boxver	# determine boxtype
+		# if a /etc/lircd.conf.$BOX_ID exists, use it...
+		[ -z "$LIRCD_OPTS" ] && [ -e /etc/lircd.conf.$BOX_ID ] && LIRCD_OPTS=/etc/lircd.conf.$BOX_ID
+		/usr/sbin/lircd $LIRCD_OPTS
+		start-stop-daemon -S -b -x /usr/bin/evremote2
+		echo "LIRCD_OPTS = $LIRCD_OPTS"
+		;;
+stop)
+		echo "Stopping lircd..."
+		start-stop-daemon -K -x /usr/bin/evremote2
+		kill -TERM `cat $PID`
+		;;
+restart)
+		echo "Restarting lircd... "
+		$0 stop
+		$0 start
+		;;
+*)
+		echo   "usage:	$0 <start|stop|restart>"
+		exit 1
+		;;
+esac
+
