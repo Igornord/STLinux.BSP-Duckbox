@@ -102,6 +102,8 @@ endif
 ENIGMA2_PLI_PATH	:= PATH=$(CROSS_PATH)
 ENIGMA2_PLI_ENV 	:= $(CROSS_ENV)
 
+
+ifdef PTXCONF_ENIGMA2_PLI_ARP
 ifdef PTXCONF_PLATFORM_SPARK
 E_CONFIG_OPTS += --enable-spark
 endif
@@ -116,7 +118,6 @@ else
 E_CONFIG_OPTS += --enable-mediafwgstreamer
 endif
 
-ifdef PTXCONF_ENIGMA2_PLI_ARP
 ENIGMA2_PLI_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 		--prefix=/usr \
