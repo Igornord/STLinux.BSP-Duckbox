@@ -36,9 +36,11 @@ $(STATEDIR)/bootlogo-enigma2.targetinstall:
 	@$(call install_fixup, bootlogo-enigma2,SECTION,base)
 	@$(call install_fixup, bootlogo-enigma2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bootlogo-enigma2,DESCRIPTION,missing)
-	
+ifdef PTXCONF_ENIGMA2_PLI_ARP
+	@$(call install_copy, bootlogo-enigma2, 0, 0, 644, $(PTXDIST_WORKSPACE)/src/boot/bootlogo.mvi, /boot/bootlogo.mvi)
+else
 	@$(call install_copy, bootlogo-enigma2, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/enigma2.mvi, /boot/enigma2.mvi)
-	
+endif	
 	@$(call install_finish, bootlogo-enigma2)
 	
 	@$(call touch)
