@@ -2,7 +2,7 @@
 
 config ENIGMA2_PLUGINS
 	bool "enigma2-plugins"
-	default n
+	default y
 	select ENIGMA2_PLI
 
 #for p in `ls .`; do echo -e "config ENIGMA2_EXTENSION_${p^^}\n\ttristate \"enigma2-plugin-extensions-${p,,}\"\n\tdepends on ENIGMA2_PLUGINS\n"; done
