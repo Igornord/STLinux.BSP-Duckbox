@@ -30,7 +30,8 @@ config ENIGMA2_PLI
 	select LIBTUXTXT
 	select LIBTUXTXT32BPP
 	select LIBDVBSIPP
-	select LIBDREAMDVD	
+	select LIBDREAMDVD
+	select LIBEPLAYER3 if ENIGMA2_PLI_ARP
 	select GST_PLUGINS_DVBMEDIASINK if !ENIGMA2_PLI_ARP
 	prompt "enigma2-pli"
 	help 
@@ -44,7 +45,6 @@ config ENIGMA2_PLI_DEV
 config ENIGMA2_PLI_ARP
 	bool
 	prompt "enigma2-pli-arp"
-	select LIBEPLAYER3
 	help
 	  This enigma2-pli-arp libeplayer3 version
 	
