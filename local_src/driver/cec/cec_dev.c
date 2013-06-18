@@ -52,9 +52,14 @@ static void GetMessageFromBuffer (unsigned char * msg, unsigned int len)
 	else // WRAP AROUND
 	{
 		unsigned int dataAtTheEnd = OUTBUFFERSIZE - outputBufferStart;
-		memcpy(msg, outputBuffer + outputBufferStart, dataAtTheEnd);
-		memcpy(msg + dataAtTheEnd, outputBuffer, len - dataAtTheEnd);
-		outputBufferStart += len - dataAtTheEnd;
+		if (len > dataAtTheEnd) {
+			memcpy(msg, outputBuffer + outputBufferStart, dataAtTheEnd);
+			memcpy(msg + dataAtTheEnd, outputBuffer, len - dataAtTheEnd);
+			outputBufferStart = len - dataAtTheEnd;
+		} else {
+			memcpy(msg, outputBuffer + outputBufferStart, len);
+			outputBufferStart += len;
+		}
 	}
 
 	dprintk(3, "%s <- START=%d END=%d\n", __func__,  outputBufferStart, outputBufferEnd);
