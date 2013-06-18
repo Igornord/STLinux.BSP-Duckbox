@@ -12,12 +12,12 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_BOOTLOGO
+
 PACKAGES-$(PTXCONF_BOOTLOGO_ENIGMA2)  += bootlogo-enigma2
 PACKAGES-$(PTXCONF_BOOTLOGO_NEUTRINO) += bootlogo-neutrino
 PACKAGES-$(PTXCONF_BOOTLOGO_VDR)      += bootlogo-vdr
 PACKAGES-$(PTXCONF_BOOTLOGO_XBMC)     += bootlogo-xbmc
-endif
+
 
 BOOTLOGO_ENIGMA2_VERSION	:= 1.0
 BOOTLOGO_NEUTRINO_VERSION	:= 1.0
@@ -39,7 +39,7 @@ $(STATEDIR)/bootlogo-enigma2.targetinstall:
 ifdef PTXCONF_ENIGMA2_PLI_ARP
 	@$(call install_copy, bootlogo-enigma2, 0, 0, 644, $(PTXDIST_WORKSPACE)/src/boot/bootlogo.mvi, /boot/bootlogo.mvi)
 else
-	@$(call install_copy, bootlogo-enigma2, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/enigma2.mvi, /boot/enigma2.mvi)
+	@$(call install_copy, bootlogo-enigma2, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/bootlogo/enigma2.mvi, /boot/bootlogo.mvi)
 endif	
 	@$(call install_finish, bootlogo-enigma2)
 	
@@ -54,7 +54,7 @@ $(STATEDIR)/bootlogo-neutrino.targetinstall:
 	@$(call install_fixup, bootlogo-neutrino,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bootlogo-neutrino,DESCRIPTION,missing)
 	
-	@$(call install_copy, bootlogo-neutrino, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/neutrino.mvi, /boot/neutrino.mvi)
+	@$(call install_copy, bootlogo-neutrino, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/bootlogo/neutrino.mvi, /boot/bootlogo.mvi)
 	
 	@$(call install_finish, bootlogo-neutrino)
 	
@@ -69,7 +69,7 @@ $(STATEDIR)/bootlogo-vdr.targetinstall:
 	@$(call install_fixup, bootlogo-vdr,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bootlogo-vdr,DESCRIPTION,missing)
 	
-	@$(call install_copy, bootlogo-vdr, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/vdr.mvi, /boot/vdr.mvi)
+	@$(call install_copy, bootlogo-vdr, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/bootlogo/vdr.mvi, /boot/bootlogo.mvi)
 	
 	@$(call install_finish, bootlogo-vdr)
 	
@@ -84,7 +84,7 @@ $(STATEDIR)/bootlogo-xbmc.targetinstall:
 	@$(call install_fixup, bootlogo-xbmc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bootlogo-xbmc,DESCRIPTION,missing)
 	
-	@$(call install_copy, bootlogo-xbmc, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/xbmc.mvi, /boot/xbmc.mvi)
+	@$(call install_copy, bootlogo-xbmc, 0, 0, 644, $(PTXDIST_WORKSPACE)/local_src/extra/bootlogo/xbmc.mvi, /boot/bootlogo.mvi)
 	
 	@$(call install_finish, bootlogo-xbmc)
 	
