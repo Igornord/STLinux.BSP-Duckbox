@@ -105,17 +105,17 @@ ENIGMA2_PLI_ENV 	:= $(CROSS_ENV)
 
 ifdef PTXCONF_ENIGMA2_PLI_ARP
 ifdef PTXCONF_PLATFORM_SPARK
-E_CONFIG_OPTS += --enable-spark
+ENIGMA2_CONFIG_OPTS += --enable-spark
 endif
 
 ifdef PTXCONF_PLATFORM_SPARK7162
-E_CONFIG_OPTS += --enable-spark7162
+ENIGMA2_CONFIG_OPTS += --enable-spark7162
 endif
 
 ifdef PTXCONF_LIBEPLAYER3
-E_CONFIG_OPTS += --enable-libeplayer3
+ENIGMA2_CONFIG_OPTS += --enable-libeplayer3
 else
-E_CONFIG_OPTS += --enable-mediafwgstreamer
+ENIGMA2_CONFIG_OPTS += --enable-mediafwgstreamer
 endif
 
 ENIGMA2_PLI_AUTOCONF := \
@@ -123,7 +123,7 @@ ENIGMA2_PLI_AUTOCONF := \
 		--prefix=/usr \
 		--without-libsdl \
 		--with-boxtype=none \
-		$(E_CONFIG_OPTS) \
+		$(ENIGMA2_CONFIG_OPTS) \
 		PYTHON=$(PTXDIST_SYSROOT_HOST)/bin/python2.7 \
 		PY_PATH=$(SYSROOT)/usr \
 		PKG_CONFIG=$(PTXDIST_SYSROOT_HOST)/bin/pkg-config \
