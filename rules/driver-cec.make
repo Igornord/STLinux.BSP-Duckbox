@@ -18,11 +18,7 @@ PACKAGES-$(PTXCONF_DRIVER_CEC) += driver-cec
 #
 DRIVER_CEC_VERSION		:= 1.0
 DRIVER_CEC		:= cec
-ifdef PTXCONF_ENIGMA2_PLI_ARP
-DRIVER_CEC_URL		:= lndir://$(PTXDIST_WORKSPACE)/local_src/driver/cec-arp
-else
 DRIVER_CEC_URL		:= lndir://$(PTXDIST_WORKSPACE)/local_src/driver/$(DRIVER_CEC)
-endif
 DRIVER_CEC_DIR		:= $(BUILDDIR)/$(DRIVER_CEC)
 DRIVER_CEC_LICENSE	:= unknown
 
