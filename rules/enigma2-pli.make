@@ -171,7 +171,7 @@ $(STATEDIR)/enigma2-pli.targetinstall:
 	
 	@$(call install_lib, enigma2-pli, 0, 0, 0644, libopen)
 	
-	#@$(call install_tree, enigma2-pli, 0, 0, -, /usr/share/)
+	#@$(call install_tree, enigma2-pli, 0, 0, -, /usr/local/share/)
 	@cd $(ENIGMA2_PLI_PKGDIR) && \
 		find ./usr/share \
 		! -type d -a ! \( -name "keymap.xml" \) | \
