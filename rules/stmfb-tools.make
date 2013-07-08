@@ -35,7 +35,7 @@ $(STATEDIR)/stmfb-tools.prepare:
 
 $(STATEDIR)/stmfb-tools.compile: $(STATEDIR)/driver-stmfb.install
 	@$(call targetinfo)
-	for dir in $(STMFB_TOOLS_SUBDIR); do \
+	for dir in `ls $(STMFB_TOOLS_DIR)`; do \
 		cd $(STMFB_TOOLS_DIR)/$${dir}; \
 			$(MAKE) $(STMFB_TOOLS_MAKEVARS) \
 			STG_TOPDIR=$(DRIVER_STMFB_DIR) \
@@ -51,7 +51,7 @@ $(STATEDIR)/stmfb-tools.compile: $(STATEDIR)/driver-stmfb.install
 $(STATEDIR)/stmfb-tools.install:
 	@$(call targetinfo)
 	mkdir -p $(STMFB_TOOLS_PKGDIR)/usr/bin
-	for dir in $(STMFB_TOOLS_SUBDIR); do \
+	for dir in `ls $(STMFB_TOOLS_DIR)`; do \
 		cp $(STMFB_TOOLS_DIR)/$${dir}/$${dir} $(STMFB_TOOLS_PKGDIR)/usr/bin/; \
 		chmod 755 $(STMFB_TOOLS_PKGDIR)/usr/bin/; \
 	done
@@ -69,8 +69,8 @@ ifdef PTXCONF_STMFB_TOOLS
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_ACP_TRANSMISSION)  += stmfb-tools-acp-transmission
-STMFB_TOOLS_ACP_TRANSMISSION_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_ACP_TRANSMISSION_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_ACP_TRANSMISSION_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_ACP_TRANSMISSION_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-acp-transmission.targetinstall:
 	@$(call targetinfo)
@@ -81,7 +81,7 @@ $(STATEDIR)/stmfb-tools-acp-transmission.targetinstall:
 	@$(call install_fixup,  stmfb-tools-acp-transmission, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-acp-transmission, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-acp-transmission, 0, 0, -, /usr/bin/acp-transmission)
+	@$(call install_alternative,   stmfb-tools-acp-transmission, 0, 0, 0755, /usr/bin/acp-transmission)
 	
 	@$(call install_finish, stmfb-tools-acp-transmission)
 	
@@ -90,8 +90,8 @@ $(STATEDIR)/stmfb-tools-acp-transmission.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_V4L2_FLEXVP_CTRL)  += stmfb-tools-v4l2-flexvp-ctrl
-STMFB_TOOLS_V4L2_FLEXVP_CTRL_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_V4L2_FLEXVP_CTRL_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_V4L2_FLEXVP_CTRL_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_V4L2_FLEXVP_CTRL_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-v4l2-flexvp-ctrl.targetinstall:
 	@$(call targetinfo)
@@ -102,7 +102,7 @@ $(STATEDIR)/stmfb-tools-v4l2-flexvp-ctrl.targetinstall:
 	@$(call install_fixup,  stmfb-tools-v4l2-flexvp-ctrl, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-v4l2-flexvp-ctrl, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-v4l2-flexvp-ctrl, 0, 0, -, /usr/bin/flexvp_ctrl)
+	@$(call install_alternative,   stmfb-tools-v4l2-flexvp-ctrl, 0, 0, 0755, /usr/bin/flexvp_ctrl)
 	
 	@$(call install_finish, stmfb-tools-v4l2-flexvp-ctrl)
 	
@@ -111,8 +111,8 @@ $(STATEDIR)/stmfb-tools-v4l2-flexvp-ctrl.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_HDMI_AUDIO_CFG)  += stmfb-tools-hdmi-audio-cfg
-STMFB_TOOLS_HDMI_AUDIO_CFG_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_HDMI_AUDIO_CFG_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_HDMI_AUDIO_CFG_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_HDMI_AUDIO_CFG_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-hdmi-audio-cfg.targetinstall:
 	@$(call targetinfo)
@@ -123,7 +123,7 @@ $(STATEDIR)/stmfb-tools-hdmi-audio-cfg.targetinstall:
 	@$(call install_fixup,  stmfb-tools-hdmi-audio-cfg, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-hdmi-audio-cfg, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-hdmi-audio-cfg, 0, 0, -, /usr/bin/hdmi-audio-cfg)
+	@$(call install_alternative,   stmfb-tools-hdmi-audio-cfg, 0, 0, 0755, /usr/bin/hdmi-audio-cfg)
 	
 	@$(call install_finish, stmfb-tools-hdmi-audio-cfg)
 	
@@ -132,8 +132,8 @@ $(STATEDIR)/stmfb-tools-hdmi-audio-cfg.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_HDMI_CONTROL)  += stmfb-tools-hdmi-control
-STMFB_TOOLS_HDMI_CONTROL_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_HDMI_CONTROL_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_HDMI_CONTROL_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_HDMI_CONTROL_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-hdmi-control.targetinstall:
 	@$(call targetinfo)
@@ -144,7 +144,7 @@ $(STATEDIR)/stmfb-tools-hdmi-control.targetinstall:
 	@$(call install_fixup,  stmfb-tools-hdmi-control, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-hdmi-control, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-hdmi-control, 0, 0, -, /usr/bin/hdmi-control)
+	@$(call install_alternative,   stmfb-tools-hdmi-control, 0, 0, 0755, /usr/bin/hdmi-control)
 	
 	@$(call install_finish, stmfb-tools-hdmi-control)
 	
@@ -153,8 +153,8 @@ $(STATEDIR)/stmfb-tools-hdmi-control.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_HDMI_INFO)  += stmfb-tools-hdmi-info
-STMFB_TOOLS_HDMI_INFO_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_HDMI_INFO_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_HDMI_INFO_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_HDMI_INFO_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-hdmi-info.targetinstall:
 	@$(call targetinfo)
@@ -165,7 +165,7 @@ $(STATEDIR)/stmfb-tools-hdmi-info.targetinstall:
 	@$(call install_fixup,  stmfb-tools-hdmi-info, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-hdmi-info, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-hdmi-info, 0, 0, -, /usr/bin/hdmi-info)
+	@$(call install_alternative,   stmfb-tools-hdmi-info, 0, 0, 0755, /usr/bin/hdmi-info)
 	
 	@$(call install_finish, stmfb-tools-hdmi-info)
 	
@@ -174,8 +174,8 @@ $(STATEDIR)/stmfb-tools-hdmi-info.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_ISRC_TRANSMISSION)  += stmfb-tools-isrc-transmission
-STMFB_TOOLS_ISRC_TRANSMISSION_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_ISRC_TRANSMISSION_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_ISRC_TRANSMISSION_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_ISRC_TRANSMISSION_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-isrc-transmission.targetinstall:
 	@$(call targetinfo)
@@ -186,7 +186,7 @@ $(STATEDIR)/stmfb-tools-isrc-transmission.targetinstall:
 	@$(call install_fixup,  stmfb-tools-isrc-transmission, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-isrc-transmission, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-isrc-transmission, 0, 0, -, /usr/bin/isrc-transmission)
+	@$(call install_alternative,   stmfb-tools-isrc-transmission, 0, 0, 0755, /usr/bin/isrc-transmission)
 	
 	@$(call install_finish, stmfb-tools-isrc-transmission)
 	
@@ -195,8 +195,8 @@ $(STATEDIR)/stmfb-tools-isrc-transmission.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_PICTURE_CFG)  += stmfb-tools-picture-cfg
-STMFB_TOOLS_PICTURE_CFG_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_PICTURE_CFG_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_PICTURE_CFG_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_PICTURE_CFG_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-picture-cfg.targetinstall:
 	@$(call targetinfo)
@@ -207,7 +207,7 @@ $(STATEDIR)/stmfb-tools-picture-cfg.targetinstall:
 	@$(call install_fixup,  stmfb-tools-picture-cfg, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-picture-cfg, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-picture-cfg, 0, 0, -, /usr/bin/picture-cfg)
+	@$(call install_alternative,   stmfb-tools-picture-cfg, 0, 0, 0755, /usr/bin/picture-cfg)
 	
 	@$(call install_finish, stmfb-tools-picture-cfg)
 	
@@ -216,8 +216,8 @@ $(STATEDIR)/stmfb-tools-picture-cfg.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_DIRECTFB_SCREEN_ALIGNMENT)  += stmfb-tools-directfb-screen-alignment
-STMFB_TOOLS_DIRECTFB_SCREEN_ALIGNMENT_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_DIRECTFB_SCREEN_ALIGNMENT_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_DIRECTFB_SCREEN_ALIGNMENT_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_DIRECTFB_SCREEN_ALIGNMENT_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-directfb-screen-alignment.targetinstall:
 	@$(call targetinfo)
@@ -228,7 +228,7 @@ $(STATEDIR)/stmfb-tools-directfb-screen-alignment.targetinstall:
 	@$(call install_fixup,  stmfb-tools-directfb-screen-alignment, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-directfb-screen-alignment, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-directfb-screen-alignment, 0, 0, -, /usr/bin/screen_alignment)
+	@$(call install_alternative,   stmfb-tools-directfb-screen-alignment, 0, 0, 0755, /usr/bin/screen_alignment)
 	
 	@$(call install_finish, stmfb-tools-directfb-screen-alignment)
 	
@@ -237,8 +237,8 @@ $(STATEDIR)/stmfb-tools-directfb-screen-alignment.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_STFBSET)  += stmfb-tools-stfbset
-STMFB_TOOLS_STFBSET_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_STFBSET_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_STFBSET_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_STFBSET_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-stfbset.targetinstall:
 	@$(call targetinfo)
@@ -249,7 +249,7 @@ $(STATEDIR)/stmfb-tools-stfbset.targetinstall:
 	@$(call install_fixup,  stmfb-tools-stfbset, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-stfbset, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-stfbset, 0, 0, -, /usr/bin/stfbset)
+	@$(call install_alternative,   stmfb-tools-stfbset, 0, 0, 0755, /usr/bin/stfbset)
 	
 	@$(call install_finish, stmfb-tools-stfbset)
 	
@@ -258,8 +258,8 @@ $(STATEDIR)/stmfb-tools-stfbset.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_V4L2_V4L2LAYER_ALIGNMENT)  += stmfb-tools-v4l2-v4l2layer-alignment
-STMFB_TOOLS_V4L2_V4L2LAYER_ALIGNMENT_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_V4L2_V4L2LAYER_ALIGNMENT_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_V4L2_V4L2LAYER_ALIGNMENT_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_V4L2_V4L2LAYER_ALIGNMENT_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-v4l2-v4l2layer-alignment.targetinstall:
 	@$(call targetinfo)
@@ -270,7 +270,7 @@ $(STATEDIR)/stmfb-tools-v4l2-v4l2layer-alignment.targetinstall:
 	@$(call install_fixup,  stmfb-tools-v4l2-v4l2layer-alignment, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-v4l2-v4l2layer-alignment, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-v4l2-v4l2layer-alignment, 0, 0, -, /usr/bin/v4l2layer_alignment)
+	@$(call install_alternative,   stmfb-tools-v4l2-v4l2layer-alignment, 0, 0, 0755, /usr/bin/v4l2layer_alignment)
 	
 	@$(call install_finish, stmfb-tools-v4l2-v4l2layer-alignment)
 	
@@ -279,8 +279,8 @@ $(STATEDIR)/stmfb-tools-v4l2-v4l2layer-alignment.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_V4L2_V4L2LUT8)  += stmfb-tools-v4l2-v4l2lut8
-STMFB_TOOLS_V4L2_V4L2LUT8_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_V4L2_V4L2LUT8_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_V4L2_V4L2LUT8_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_V4L2_V4L2LUT8_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-v4l2-v4l2lut8.targetinstall:
 	@$(call targetinfo)
@@ -291,7 +291,7 @@ $(STATEDIR)/stmfb-tools-v4l2-v4l2lut8.targetinstall:
 	@$(call install_fixup,  stmfb-tools-v4l2-v4l2lut8, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-v4l2-v4l2lut8, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-v4l2-v4l2lut8, 0, 0, -, /usr/bin/v4l2lut8)
+	@$(call install_alternative,   stmfb-tools-v4l2-v4l2lut8, 0, 0, 0755, /usr/bin/v4l2lut8)
 	
 	@$(call install_finish, stmfb-tools-v4l2-v4l2lut8)
 	
@@ -300,8 +300,8 @@ $(STATEDIR)/stmfb-tools-v4l2-v4l2lut8.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_V4L2_V4L2STREAM)  += stmfb-tools-v4l2-v4l2stream
-STMFB_TOOLS_V4L2_V4L2STREAM_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_V4L2_V4L2STREAM_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_V4L2_V4L2STREAM_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_V4L2_V4L2STREAM_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-v4l2-v4l2stream.targetinstall:
 	@$(call targetinfo)
@@ -312,7 +312,7 @@ $(STATEDIR)/stmfb-tools-v4l2-v4l2stream.targetinstall:
 	@$(call install_fixup,  stmfb-tools-v4l2-v4l2stream, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-v4l2-v4l2stream, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-v4l2-v4l2stream, 0, 0, -, /usr/bin/v4l2stream)
+	@$(call install_alternative,   stmfb-tools-v4l2-v4l2stream, 0, 0, 0755, /usr/bin/v4l2stream)
 	
 	@$(call install_finish, stmfb-tools-v4l2-v4l2stream)
 	
@@ -321,8 +321,8 @@ $(STATEDIR)/stmfb-tools-v4l2-v4l2stream.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_V4L2_V4L2VBI)  += stmfb-tools-v4l2-v4l2vbi
-STMFB_TOOLS_V4L2_V4L2VBI_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_V4L2_V4L2VBI_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_V4L2_V4L2VBI_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_V4L2_V4L2VBI_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-v4l2-v4l2vbi.targetinstall:
 	@$(call targetinfo)
@@ -333,7 +333,7 @@ $(STATEDIR)/stmfb-tools-v4l2-v4l2vbi.targetinstall:
 	@$(call install_fixup,  stmfb-tools-v4l2-v4l2vbi, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-v4l2-v4l2vbi, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-v4l2-v4l2vbi, 0, 0, -, /usr/bin/v4l2vbi)
+	@$(call install_alternative,   stmfb-tools-v4l2-v4l2vbi, 0, 0, 0755, /usr/bin/v4l2vbi)
 	
 	@$(call install_finish, stmfb-tools-v4l2-v4l2vbi)
 	
@@ -342,8 +342,8 @@ $(STATEDIR)/stmfb-tools-v4l2-v4l2vbi.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_V4L2_YUVPLAYER)  += stmfb-tools-v4l2-yuvplayer
-STMFB_TOOLS_V4L2_YUVPLAYER_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_V4L2_YUVPLAYER_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_V4L2_YUVPLAYER_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_V4L2_YUVPLAYER_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-v4l2-yuvplayer.targetinstall:
 	@$(call targetinfo)
@@ -354,7 +354,7 @@ $(STATEDIR)/stmfb-tools-v4l2-yuvplayer.targetinstall:
 	@$(call install_fixup,  stmfb-tools-v4l2-yuvplayer, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-v4l2-yuvplayer, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-v4l2-yuvplayer, 0, 0, -, /usr/bin/yuvplayer)
+	@$(call install_alternative,   stmfb-tools-v4l2-yuvplayer, 0, 0, 0755, /usr/bin/yuvplayer)
 	
 	@$(call install_finish, stmfb-tools-v4l2-yuvplayer)
 	
@@ -363,8 +363,8 @@ $(STATEDIR)/stmfb-tools-v4l2-yuvplayer.targetinstall:
 # ----------------------------------------------------------------------------
 
 PACKAGES-$(PTXCONF_STMFB_TOOLS_V4L2_ZORDER)  += stmfb-tools-v4l2-zorder
-STMFB_TOOLS_V4L2_ZORDER_VERSION              := $(STMFB_TOOLS_SH4_VERSION)
-STMFB_TOOLS_V4L2_ZORDER_PKGDIR               := $(STMFB_TOOLS_SH4_PKGDIR)
+STMFB_TOOLS_V4L2_ZORDER_VERSION              := $(STMFB_TOOLS_VERSION)
+STMFB_TOOLS_V4L2_ZORDER_PKGDIR               := $(STMFB_TOOLS_PKGDIR)
 
 $(STATEDIR)/stmfb-tools-v4l2-zorder.targetinstall:
 	@$(call targetinfo)
@@ -375,7 +375,7 @@ $(STATEDIR)/stmfb-tools-v4l2-zorder.targetinstall:
 	@$(call install_fixup,  stmfb-tools-v4l2-zorder, AUTHOR,      "Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,  stmfb-tools-v4l2-zorder, DESCRIPTION, missing)
 	
-	@$(call install_tree,   stmfb-tools-v4l2-zorder, 0, 0, -, /usr/bin/zorder)
+	@$(call install_alternative,   stmfb-tools-v4l2-zorder, 0, 0, 0755, /usr/bin/zorder)
 	
 	@$(call install_finish, stmfb-tools-v4l2-zorder)
 	
