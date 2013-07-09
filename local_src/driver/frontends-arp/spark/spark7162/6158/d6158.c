@@ -747,7 +747,7 @@ INT32 nim_panic6158_set_info(struct nim_device *dev, UINT8 system, UINT32 id , U
 					break;
 			}
 
-		/* '11/10/19 : OKAMOTO	Correct warning: enumeration value eDMD_E_ISDBTf not handled in switch */
+		/* '11/10/19 : OKAMOTO	Correct warning: enumeration value ï¿½eDMD_E_ISDBTï¿½f not handled in switch */
 		default:
 			ret = !SUCCESS;
 			break;
@@ -1053,7 +1053,7 @@ static INT32 nim_panic6158_get_bandwidth(struct nim_device *dev, INT32 *bandwidt
 	return SUCCESS;
 }
 
-static INT32 nim_panic6158_tune_action(struct nim_device *dev, UINT8 system, UINT32 frq, UINT8 bw, UINT8 qam, UINT32 wait_time)
+static INT32 nim_panic6158_tune_action(struct nim_device *dev, UINT8 system, UINT32 frq, UINT8 bw, UINT8 qam, UINT8 plp_id, UINT32 wait_time)
 {
 	INT32 ret = !SUCCESS;
 	INT32 retTuner = !SUCCESS;
@@ -1151,7 +1151,7 @@ static INT32 nim_panic6158_tune_action(struct nim_device *dev, UINT8 system, UIN
 		{
 			data = 0x80;
 			nim_reg_write(dev, DEMO_BANK_T2, DMD_FECSET1, &data, 1);
-			data = 0x0;
+			data = plp_id;
 			nim_reg_write(dev, DEMO_BANK_T2, DMD_PLPID, &data, 1);
 
 			if (1 == priv->scan_stop_flag)
@@ -1231,7 +1231,7 @@ static INT32 nim_panic6158_channel_change(struct nim_device *dev, struct NIM_Cha
 	INT32 i;//, j;
 	INT32 tune_num = 1;
 	UINT32 wait_time;
-	UINT8 bw, mode[2], qam;
+	UINT8 bw, mode[2], qam, plp_id;
 	struct nim_panic6158_private *priv;
 	printk("          nim_panic6158_channel_change\n");
 
@@ -1240,7 +1240,8 @@ static INT32 nim_panic6158_channel_change(struct nim_device *dev, struct NIM_Cha
 	frq = param->freq;//kHz
 	bw = param->bandwidth;//MHz
 	qam = param->modulation;//for DVBC
-	NIM_PANIC6158_PRINTF("frq:%dKHz, bw:%dMHz, system:%d\n", frq, bw, mode);
+	plp_id = param->plp_id;//for DVB-T2
+	NIM_PANIC6158_PRINTF("frq:%dKHz, bw:%dMHz, system:%d, plp id:%d\n", frq, bw, mode, plp_id);
 
 	//param->priv_param;//DEMO_UNKNOWN/DEMO_DVBC/DEMO_DVBT/DEMO_DVBT2
 	if (DEMO_DVBC == param->priv_param)
@@ -1308,7 +1309,7 @@ static INT32 nim_panic6158_channel_change(struct nim_device *dev, struct NIM_Cha
 
 		//tune demo
 		wait_time = (PANIC6158_TUNE_MAX_NUM == tune_num && 0 == i) ? 1000 : 300;//ms
-		if (SUCCESS == nim_panic6158_tune_action(dev, mode[i], frq, bw, qam, wait_time))
+		if (SUCCESS == nim_panic6158_tune_action(dev, mode[i], frq, bw, qam, plp_id, wait_time))
 			break;
 	}
 
@@ -1728,9 +1729,9 @@ YW_ErrorType_T demod_d6158_Close(U8 Index)
 
 
 /***********************************************************************
-	º¯ÊýÃû³Æ:	demod_d6158_IsLocked
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:	demod_d6158_IsLocked
 
-	º¯ÊýËµÃ÷:	¶ÁÈ¡ÐÅºÅÊÇ·ñËø¶¨
+	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½:	ï¿½ï¿½È¡ï¿½Åºï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
 
 ************************************************************************/
 YW_ErrorType_T demod_d6158_IsLocked(U8 Handle, BOOL *IsLocked)
@@ -1758,9 +1759,9 @@ YW_ErrorType_T demod_d6158_IsLocked(U8 Handle, BOOL *IsLocked)
 
 
 /***********************************************************************
-	º¯ÊýÃû³Æ:	demod_d6158_Identify
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:	demod_d6158_Identify
 
-	º¯ÊýËµÃ÷:	¼ì²âÓ²¼þÊÇ·ñ6158
+	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½:	ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½Ç·ï¿½6158
 
 ************************************************************************/
 int   demod_d6158_Identify(struct i2c_adapter* i2c_adap,U8 ucID)
@@ -1794,8 +1795,8 @@ int   demod_d6158_Identify(struct i2c_adapter* i2c_adap,U8 ucID)
     }
     return YWHAL_ERROR_UNKNOWN_DEVICE;
 }
-YW_ErrorType_T  demod_d6158_Repeat(IOARCH_Handle_t				DemodIOHandle, /*demod io ??¡À¨²*/
-									IOARCH_Handle_t				TunerIOHandle, /*?¡ã?? io ??¡À¨²*/
+YW_ErrorType_T  demod_d6158_Repeat(IOARCH_Handle_t				DemodIOHandle, /*demod io ??ï¿½ï¿½ï¿½*/
+									IOARCH_Handle_t				TunerIOHandle, /*?ï¿½ï¿½?? io ??ï¿½ï¿½ï¿½*/
 									TUNER_IOARCH_Operation_t Operation,
 									unsigned short SubAddr,
 									unsigned char *Data,
@@ -1809,7 +1810,7 @@ YW_ErrorType_T  demod_d6158_Repeat(IOARCH_Handle_t				DemodIOHandle, /*demod io 
 
 
 static YW_ErrorType_T demod_d6158_ScanFreq(struct dvb_frontend_parameters *p,
-	                                            struct nim_device *dev,UINT8   System)
+	                                            struct nim_device *dev,UINT8 System, UINT8 plp_id)
 {
    // struct nim_device           *dev;
     INT32 ret = 0;
@@ -1833,6 +1834,7 @@ static YW_ErrorType_T demod_d6158_ScanFreq(struct dvb_frontend_parameters *p,
 		//printk("p->frequency:%dKHz, bw:%dMHz\n",
 		//		p->frequency, p->u.ofdm.bandwidth);
 		param.freq = p->frequency;
+		param.plp_id = plp_id;
 		switch(p->u.ofdm.bandwidth)
 		{
 		case BANDWIDTH_6_MHZ:
@@ -1952,7 +1954,7 @@ YW_ErrorType_T demod_d6158_Open(U8 Handle,TUNER_OpenParams_T * OpenParams)
 	Tuner_API.nim_Tuner_Init = tun_mxl301_init;
 	Tuner_API.nim_Tuner_Status = tun_mxl301_status;
 	Tuner_API.nim_Tuner_Control = tun_mxl301_control;
-	Tuner_API.tune_t2_first = 0;//when demod_d6158_ScanFreq,param.priv_param >DEMO_DVBT2,tuner tune T2 then t
+	Tuner_API.tune_t2_first = 1;//when demod_d6158_ScanFreq,param.priv_param >DEMO_DVBT2,tuner tune T2 then t
 	Tuner_API.tuner_config.demo_type = PANASONIC_DEMODULATOR;
 	Tuner_API.tuner_config.cTuner_Base_Addr = 0xC2;
 
@@ -1960,7 +1962,7 @@ YW_ErrorType_T demod_d6158_Open(U8 Handle,TUNER_OpenParams_T * OpenParams)
 	ret = nim_panic6158_attach(Handle, &Tuner_API,OpenParams);
 
 
-	/*------------------Çý¶¯º¯ÊýÖ¸Õë----------------*/
+	/*------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½----------------*/
 	if(YWTUNER_DELIVER_TER == Inst->Device)
 	{
 		Inst->DriverParam.Ter.DemodDriver.Demod_GetSignalInfo = demod_d6158_GetSignalInfo;
@@ -1993,20 +1995,23 @@ YW_ErrorType_T demod_d6158_Open(U8 Handle,TUNER_OpenParams_T * OpenParams)
     return YW_ErrorCode;
 }
 
+#define NO_STREAM_ID_FILTER	(~0U)
 
 int d6158_set_frontend(struct dvb_frontend* fe,
 										struct dvb_frontend_parameters *p)
 {
+	struct dtv_frontend_properties *props = &fe->dtv_property_cache;
 	struct dvb_d6158_fe_ofdm_state* state = fe->demodulator_priv;
 	struct nim_device *dev = &state->spark_nimdev;
 	struct nim_panic6158_private *priv = dev->priv;
-	UINT8 lock;
+	UINT8 lock, plp_id;
+	plp_id = props->isdbs_ts_id != NO_STREAM_ID_FILTER ? props->isdbs_ts_id : 0;
 	state->p = p;
 	printk("-----------------------d6158_set_frontend\n");
 	nim_panic6158_get_lock(dev,&lock);
 	if(lock != 1)
 	{
-		 demod_d6158_ScanFreq(p,&state->spark_nimdev,priv->system);
+		 demod_d6158_ScanFreq(p,&state->spark_nimdev,priv->system,plp_id);
 	}
 	state->p = NULL;
 
@@ -2848,9 +2853,9 @@ exit:
 
 
  /***********************************************************************
-	 º¯ÊýÃû³Æ:	 tuner_mxl301_Identify
+	 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:	 tuner_mxl301_Identify
 
-	 º¯ÊýËµÃ÷:	 mxl301 µÄÐ£Ñéº¯Êý
+	 ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½:	 mxl301 ï¿½ï¿½Ð£ï¿½éº¯ï¿½ï¿½
 
  ************************************************************************/
  YW_ErrorType_T tuner_mxl301_Identify(IOARCH_Handle_t	*i2c_adap)
@@ -3047,7 +3052,7 @@ struct dvb_frontend* dvb_d6158_attach(struct i2c_adapter* i2c,UINT8 system)
 	 Tuner_API.nim_Tuner_Init = tun_mxl301_init;
 	 Tuner_API.nim_Tuner_Status = tun_mxl301_status;
 	 Tuner_API.nim_Tuner_Control = tun_mxl301_control;
-	 Tuner_API.tune_t2_first = 0;//when demod_d6158_ScanFreq,param.priv_param >DEMO_DVBT2,tuner tune T2 then t
+	 Tuner_API.tune_t2_first = 1;//when demod_d6158_ScanFreq,param.priv_param >DEMO_DVBT2,tuner tune T2 then t
 	 Tuner_API.tuner_config.demo_type = PANASONIC_DEMODULATOR;
 	 Tuner_API.tuner_config.cTuner_Base_Addr = 0xC2;
 	 Tuner_API.tuner_config.i2c_adap = (IOARCH_Handle_t*)i2c;

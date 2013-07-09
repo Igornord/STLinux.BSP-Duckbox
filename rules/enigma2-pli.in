@@ -2,7 +2,7 @@
 
 
 config ENIGMA2_PLI
-	tristate
+	tristate "enigma2-pli"
 	select FREETYPE
 	select EXPAT
 	select FONTCONFIG
@@ -33,14 +33,11 @@ config ENIGMA2_PLI
 	select LIBDREAMDVD
 	select LIBEPLAYER3 if ENIGMA2_PLI_ARP
 	select GST_PLUGINS_DVBMEDIASINK if !ENIGMA2_PLI_ARP
-	prompt "enigma2-pli"
-	help 
-	  FIXME
 
 config ENIGMA2_PLI_DEV
 	tristate "enigma2-pli-dev"
 	default n
-	select ENIGMA2_PLI
+	depends on ENIGMA2_PLI
 
 config ENIGMA2_PLI_ARP
 	bool

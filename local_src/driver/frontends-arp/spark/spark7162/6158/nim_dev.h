@@ -211,6 +211,7 @@ struct NIM_Channel_Change
 	UINT8 op_mode;		//0:channel change 1:search mode //dmq add
 	UINT8 priv_param;		//dmq add
 	UINT8 dvb_t2_c;			//add by rxj   0:t2,t 1:c
+	UINT8 plp_id;			//add by crazycat
 };
 
 /* Structure for Channel Search parameters */
@@ -327,7 +328,7 @@ struct nim_device
 	UINT32 	Tuner_select;                                        /* I2C TYPE for  TUNER select  */
 	UINT16	flags;						/* Interface flags, status and ability */
 
-	UINT32          DemodIOHandle[3];  //jhy add, 分别为t ,t2 ,c
+	UINT32          DemodIOHandle[3];  //jhy add, 锟街憋拷为t ,t2 ,c
 
 	/* Hardware privative structure */
 	void		*priv;					/* pointer to private data */
