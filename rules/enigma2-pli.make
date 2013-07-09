@@ -43,10 +43,8 @@ endif
 
 ENIGMA2_PLI		:= enigma2-pli-$(ENIGMA2_PLI_VERSION)
 ifdef PTXCONF_ENIGMA2_PLI_ARP
-#ENIGMA2_PLI_URL	:= git@github.com:schpuntik/enigma2-pli-arp.git
-#ENIGMA2_PLI_SOURCE_GIT	:= $(SRCDIR)/enigma2-pli-arp.git
-ENIGMA2_PLI_URL	:= git://git.code.sf.net/p/openpli/enigma2
-ENIGMA2_PLI_SOURCE_GIT	:= $(SRCDIR)/enigma2-pli.git
+ENIGMA2_PLI_URL	:= git@github.com:schpuntik/enigma2-pli-arp.git
+ENIGMA2_PLI_SOURCE_GIT	:= $(SRCDIR)/enigma2-pli-arp.git
 else
 ENIGMA2_PLI_URL	:= git://git.code.sf.net/p/openpli/enigma2
 ENIGMA2_PLI_URLOLD := git://openpli.git.sourceforge.net/gitroot/openpli/enigma2
@@ -107,7 +105,7 @@ ENIGMA2_PLI_ENV 	:= $(CROSS_ENV)
 
 ifdef PTXCONF_ENIGMA2_PLI_ARP
 ifdef PTXCONF_PLATFORM_SPARK
-# ENIGMA2_CONFIG_OPTS += --enable-spark
+ENIGMA2_CONFIG_OPTS += --enable-spark
 endif
 
 ifdef PTXCONF_PLATFORM_SPARK7162
