@@ -42,7 +42,7 @@ NTFS_3G_CONF_OPT	:= \
 	--disable-mtab \
 	--enable-ntfsprogs \
 	--enable-crypto \
-	--with-fuse=external \
+	--with-fuse=internal \
 	--with-uuid
 
 # ----------------------------------------------------------------------------
