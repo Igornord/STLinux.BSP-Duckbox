@@ -21,7 +21,7 @@ PACKAGES-$(PTXCONF_ENIGMA2_PLI_DEV) += enigma2-pli-dev
 #
 ##### enigma2-pli-arp
 ifdef PTXCONF_ENIGMA2_PLI_VERSION_MASTER
-ENIGMA2_PLI_VERSION	:= 43dd2ca8ead25bac8b2910fbfdf1debbb1dff088
+ENIGMA2_PLI_VERSION	:= testing
 endif
 ifdef PTXCONF_ENIGMA2_PLI_VERSION_LAST
 ENIGMA2_PLI_VERSION	:= aa18b40b5234d59867c5998caa819b19e16e4079
@@ -43,8 +43,8 @@ endif
 
 ENIGMA2_PLI		:= enigma2-pli-$(ENIGMA2_PLI_VERSION)
 ifdef PTXCONF_ENIGMA2_PLI_ARP
-ENIGMA2_PLI_URL	:= git@github.com:schpuntik/enigma2-pli-arp.git
-ENIGMA2_PLI_SOURCE_GIT	:= $(SRCDIR)/enigma2-pli-arp.git
+ENIGMA2_PLI_URL	:= https://code.google.com/p/enigma2-cris-technic
+ENIGMA2_PLI_SOURCE_GIT	:= $(SRCDIR)/enigma2-cris-technic
 else
 ENIGMA2_PLI_URL	:= git://git.code.sf.net/p/openpli/enigma2
 ENIGMA2_PLI_URLOLD := git://openpli.git.sourceforge.net/gitroot/openpli/enigma2
