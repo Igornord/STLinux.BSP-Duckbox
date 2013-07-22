@@ -7,7 +7,7 @@ showiframe_logodiralt="/boot"
 case $1 in
 start)
 	echo "starting showiframe"
-
+	cat /etc/videomode > /proc/stb/video/videomode
 	if [ -e $showiframe_logodir/$showiframe_logo ]; then
 		showiframe -p $showiframe_logodir/$showiframe_logo &
 	else
