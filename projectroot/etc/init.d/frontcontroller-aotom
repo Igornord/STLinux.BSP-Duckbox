@@ -3,7 +3,7 @@
 case $1 in
 start)
 	echo "starting frontcontroller-aotom"
-	mknod -m 644 /dev/vfd c 147 0
+
 	insmod /lib/modules/aotom.ko
 
 	exit 0
