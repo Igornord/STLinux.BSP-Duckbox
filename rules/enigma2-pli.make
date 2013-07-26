@@ -181,6 +181,7 @@ $(STATEDIR)/enigma2-pli.targetinstall:
 	
 	@$(call install_alternative_tree, enigma2-pli, 0, 0, /etc/enigma2)
 	@$(call install_alternative_tree, enigma2-pli, 0, 0, /etc/tuxbox)
+	@$(call install_link, enigma2-pli, /etc/tuxbox/timezone.xml, /etc/timezone.xml)
 	
 	@$(call install_finish, enigma2-pli)
 	
